@@ -175,13 +175,11 @@ def extract_text(image_bytes):
     try:
         import pytesseract
         from PIL import Image
-        # Try opening as a regular image first
         try:
             img = Image.open(io.BytesIO(image_bytes)).convert("L")
             return pytesseract.image_to_string(img), True
         except Exception:
             pass
-        # Try converting PDF to image using pdf2image
         try:
             from pdf2image import convert_from_bytes
             pages = convert_from_bytes(image_bytes)
@@ -191,20 +189,8 @@ def extract_text(image_bytes):
         except Exception:
             pass
         return "", False
-    except:
+    except Exception:
         return "", False
-
-And add `pdf2image` and `poppler-utils` to your files:
-
-**In `requirements.txt` add:**
-```
-pdf2image>=1.16.0
-```
-
-**In `packages.txt` add:**
-```
-tesseract-ocr
-poppler-utils
 
 def parse_bill(text, provider):
     result = {"units":None,"amount":None,"month":None,"date":None,"rate":None}
