@@ -193,7 +193,6 @@ def extract_text(image_bytes):
         return "", False
     except:
         return "", False
-```
 
 And add `pdf2image` and `poppler-utils` to your files:
 
